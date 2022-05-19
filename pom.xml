@@ -25,7 +25,6 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-
     </properties>
 
     <!--https://github.com/spring-projects/spring-batch/blob/main/pom.xml-->
@@ -38,7 +37,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <release>${java.version}</release>
                     <!-- 编译后保持方法形参名称不变 -->
                     <compilerArgs>
                         <arg>-parameters</arg>
