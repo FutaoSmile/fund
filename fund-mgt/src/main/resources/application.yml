@@ -8,8 +8,8 @@ server:
 dubbo:
   protocol:
     name: dubbo
-    port:
   scan:
     base-packages:
       - com.futao.fund.mgt.service
-
+  registry:
+    address: zookeeper://127.0.0.1:2181
