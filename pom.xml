@@ -25,6 +25,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <springboot.version>2.6.7</springboot.version>
         <htmlunit.version>2.61.0</htmlunit.version>
         <lombok.version>1.18.24</lombok.version>
         <fastjson.version>1.2.49</fastjson.version>
@@ -32,6 +33,7 @@
         <logback-version>1.2.11</logback-version>
         <apache.commons.lang3>3.12.0</apache.commons.lang3>
         <apache.commons.collection4>4.4</apache.commons.collection4>
+        <dubbo-starter.version>3.0.7</dubbo-starter.version>
     </properties>
 
     <dependencies>
@@ -62,6 +64,19 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.futao</groupId>
                 <artifactId>fund-api</artifactId>
@@ -115,6 +130,22 @@
 
     <!--https://github.com/spring-projects/spring-batch/blob/main/pom.xml-->
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

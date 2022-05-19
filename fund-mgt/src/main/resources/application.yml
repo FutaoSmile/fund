@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: fund-mgt
+
+server:
+  port: 8080
+
+dubbo:
+  protocol:
+    name: dubbo
+    port:
+  scan:
+    base-packages:
+      - com.futao.fund.mgt.service
+

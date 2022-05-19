@@ -7,9 +7,6 @@
 - 目的
   - 对相关技术做个实践
 
-## 时间线
-  - 2022/5/19, 项目开始日期
-
 ## 项目构成：
 - [fund-core](./fund-core)
   - 框架相关的
@@ -26,4 +23,16 @@
   - 前端页面
 - [fund-webapp](./fund-webapp)
   - 提供给C端的HTTP接口
+
+## 涉及技术
+
+- JDK 1.8
+- maven
+- htmlunit
+- springboot
+- dubbo
+
+## 时间线
+
+- 2022/5/19, 项目开始日期
 
