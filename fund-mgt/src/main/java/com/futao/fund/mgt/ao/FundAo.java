@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FundAo {
-    @DubboReference(version = "2.0.1", check = false)
+
+    @DubboReference(version = "${app.dubbo.service-version}", check = false)
     private FundService fundService;
 
     public String applicationName() {

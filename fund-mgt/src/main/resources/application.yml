@@ -1,15 +1,27 @@
 spring:
   application:
     name: fund-mgt
-
+  mvc:
+    view:
+      suffix: .html
+  web:
+    resources:
+      static-locations:
+        - classpath:/dist/
 server:
   port: 8080
 
 dubbo:
   protocol:
     name: dubbo
+    # 随机
+    port: -1
   scan:
     base-packages:
       - com.futao.fund.mgt.service
   registry:
     address: zookeeper://127.0.0.1:2181
+
+app:
+  dubbo:
+    service-version: 1.0.0
