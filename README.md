@@ -31,6 +31,8 @@
 - htmlunit
 - springboot
 - dubbo
+- mybatis-plus
+- VUE
 
 ## 时间线
 
