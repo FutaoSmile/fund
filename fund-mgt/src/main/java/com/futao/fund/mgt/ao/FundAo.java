@@ -1,8 +1,11 @@
 package com.futao.fund.mgt.ao;
 
-import com.futao.fund.api.FundService;
+import com.futao.fund.api.FundEsService;
+import com.futao.fund.api.dto.FundDTO;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author futao
@@ -11,10 +14,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class FundAo {
 
-    @DubboReference(version = "${app.dubbo.service-version}", check = false)
-    private FundService fundService;
+    @DubboReference(version = "${app.dubbo.service-version}", retries = 0, check = false)
+    private FundEsService fundEsService;
 
-    public String applicationName() {
-        return fundService.applicationName();
+    public Boolean spiderFetch() {
+        return fundEsService.spiderFetch();
+    }
+
+    public List<FundDTO> search(String fundName) {
+        return fundEsService.search(fundName);
     }
 }

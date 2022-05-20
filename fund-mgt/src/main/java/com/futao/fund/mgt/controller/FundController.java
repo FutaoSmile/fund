@@ -1,10 +1,14 @@
 package com.futao.fund.mgt.controller;
 
+import com.futao.fund.api.dto.FundDTO;
 import com.futao.fund.mgt.ao.FundAo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author futao
@@ -17,9 +21,14 @@ public class FundController {
     @Autowired
     private FundAo fundAo;
 
-    @GetMapping
-    public String applicationName() {
-        return fundAo.applicationName();
+    @PostMapping("/spider-fetch")
+    public Boolean spiderFetch() {
+        return fundAo.spiderFetch();
+    }
+
+    @GetMapping("/search")
+    public List<FundDTO> search(String fundName) {
+        return fundAo.search(fundName);
     }
 
 }

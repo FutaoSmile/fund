@@ -4,13 +4,15 @@ import com.futao.fund.spider.annotations.ColumnName;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * @author futaosmile@gmail.com
  * @date 2022/5/19
  */
 @Getter
 @Setter
-public class FundPage implements PageObject {
+public class FundPage implements PageObject, Serializable {
     @ColumnName("基金代码")
     private String fundCode;
     @ColumnName("基金名称")

@@ -8,7 +8,7 @@ import com.futao.fund.spider.spiders.tiantian.TianTianSpider;
  */
 public class DemoSpider {
     public static void main(String[] args) {
-        String fetch = TianTianSpider.fetchTable("http://fund.eastmoney.com/trade/gp.html", "tblite_gp");
+        TianTianSpider.fetchTable("http://fund.eastmoney.com/trade/gp.html", "tblite_gp", true);
         // Table<String, String, Object> valueTable = HashBasedTable.<String, String, Object>create();
         // try (WebClient webClient = WebClientUtil.getWebClient()) {
         //     HtmlPage page = webClient.getPage("http://fund.eastmoney.com/data/fundranking.html");

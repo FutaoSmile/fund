@@ -118,7 +118,6 @@ web_modules/
 .parcel-cache
 .next
 .nuxt
-dist
 .cache/
 .vuepress/dist
 .serverless/

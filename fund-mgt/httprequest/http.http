@@ -1,1 +1,5 @@
-GET http://localhost:8080/fund
+POST http://localhost:8080/fund/spider-fetch
+
+###
+GET http://localhost:8080/fund/search?fundName=前
+
