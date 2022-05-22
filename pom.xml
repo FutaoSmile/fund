@@ -36,6 +36,7 @@
         <apache.commons.collection4>4.4</apache.commons.collection4>
         <dubbo-starter.version>2.7.10</dubbo-starter.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <javaee-api.version>8.0.1</javaee-api.version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee-api.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-commons</artifactId>
@@ -164,6 +170,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.7.0</version>
                     <configuration>
                         <excludes>
                             <exclude>

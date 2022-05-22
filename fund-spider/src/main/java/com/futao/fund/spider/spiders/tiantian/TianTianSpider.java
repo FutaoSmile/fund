@@ -20,7 +20,15 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class TianTianSpider {
-    public static List<FundPage> fetchTable(String url, String tableId, boolean pageable) {
+    /**
+     * 通过抓取页面来解析数据
+     *
+     * @param url      页面地址
+     * @param tableId  要抓取的表格的id
+     * @param pageable 是否自动分页
+     * @return 抓取到的数据
+     */
+    public static List<FundPage> fetchTableValueByPage(String url, String tableId, boolean pageable) {
         try (WebClient webClient = WebClientUtil.getWebClient()) {
             HtmlPage htmlPage = webClient.getPage(url);
             HtmlTable tableElement = htmlPage.getHtmlElementById(tableId);
