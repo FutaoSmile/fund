@@ -2,13 +2,34 @@
   <a-layout id="components-layout-demo-custom-trigger">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo"><h2 style="color: white">FUND</h2></div>
-      <a-menu v-model:selectedKeys="selectedKeys" mode="inline" theme="dark">
+      <a-menu v-model:selectedKeys="selectedKeys" :multiple="false" mode="inline" theme="dark">
         <a-menu-item key="1">
           <router-link to="/">
             <user-outlined/>
             <span>nav home page</span>
           </router-link>
         </a-menu-item>
+
+        <a-sub-menu key="fund-list">
+          <template #icon>
+            <money-collect-outlined/>
+          </template>
+          <template #title>基金</template>
+          <router-link to="/fund-list-gp">
+            <a-menu-item key="fund-list-gp">股票型</a-menu-item>
+          </router-link>
+          <router-link to="/fund-list-pg">
+            <a-menu-item key="fund-list-pg">偏股型</a-menu-item>
+          </router-link>
+          <router-link to="/fund-list-hh">
+            <a-menu-item key="fund-list-hh">混合型</a-menu-item>
+          </router-link>
+          <router-link to="/fund-list-zq">
+            <a-menu-item key="fund-list-zq">债券型</a-menu-item>
+          </router-link>
+        </a-sub-menu>
+
+
         <a-menu-item key="2">
           <router-link to="/404">
             <video-camera-outlined/>
@@ -44,11 +65,14 @@
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  MoneyCollectOutlined,
+  SettingOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons-vue';
 import {defineComponent, ref} from 'vue';
+
 
 export default defineComponent({
   components: {
@@ -57,6 +81,8 @@ export default defineComponent({
     UploadOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
+    SettingOutlined,
+    MoneyCollectOutlined
   },
 
   setup() {

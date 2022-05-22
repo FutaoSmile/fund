@@ -4,7 +4,7 @@
   "author": "futao",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service dev --mode development",
+    "serve": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint"
   },

@@ -4,7 +4,7 @@ import {notification} from 'ant-design-vue';
 
 //请求超时时长
 axios.defaults.timeout = 20000;
-axios.defaults.baseURL = process.env.VUE_APP_BASE_DOMAIN + '/staff-center'//配置接口地址
+axios.defaults.baseURL = process.env.VUE_APP_BASE_DOMAIN + ''//配置接口地址
 
 //POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use((config) => {

@@ -19,7 +19,11 @@ const routes = [
         name: 'about',
         component: () => import(/* webpackChunkName: "about" */ '../views/HomeView.vue')
     },
-
+    {
+        path: '/fund-list-gp',
+        name: 'fundListGp',
+        component: () => import('../views/fund-list/FundListGp.vue')
+    },
     {
         path: '/404',
         name: '404',

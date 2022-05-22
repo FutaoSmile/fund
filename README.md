@@ -1,4 +1,11 @@
 # Fund
+
+<p align="center">
+<img src="https://img.shields.io/github/followers/futaosmile?style=social">
+<img src="https://img.shields.io/github/commit-activity/w/futaosmile/fund">
+<img src="https://img.shields.io/github/languages/top/futaosmile/fund">
+</p>
+
 - 项目介绍
   1. 爬取基金数据
   2. 写入ES
