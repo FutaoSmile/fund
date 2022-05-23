@@ -1,6 +1,7 @@
 package com.futao.fund.api;
 
 import com.futao.fund.api.dto.FundDTO;
+import com.futao.fund.api.dto.query.FundQueryDTO;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
 public interface FundEsService {
     Boolean spiderFetch();
 
-    List<FundDTO> search(String fundName);
+    List<FundDTO> search(FundQueryDTO fundName);
 }

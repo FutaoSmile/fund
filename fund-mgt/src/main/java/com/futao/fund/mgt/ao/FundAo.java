@@ -2,6 +2,7 @@ package com.futao.fund.mgt.ao;
 
 import com.futao.fund.api.FundEsService;
 import com.futao.fund.api.dto.FundDTO;
+import com.futao.fund.api.dto.query.FundQueryDTO;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class FundAo {
         return fundEsService.spiderFetch();
     }
 
-    public List<FundDTO> search(String fundName) {
+    public List<FundDTO> search(FundQueryDTO fundName) {
         return fundEsService.search(fundName);
     }
 }

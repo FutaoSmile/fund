@@ -1,5 +1,6 @@
 POST http://localhost:8080/fund/spider-fetch
 
 ###
-GET http://localhost:8080/fund/search?fundName=前
+GET http://localhost:8080/fund/search?sortFields=dailyGrowthRate:desc,nearlyMonth:asc&pageNo=1&pageSize=100
+
 

@@ -1,6 +1,7 @@
 package com.futao.fund.mgt.controller;
 
 import com.futao.fund.api.dto.FundDTO;
+import com.futao.fund.api.dto.query.FundQueryDTO;
 import com.futao.fund.mgt.ao.FundAo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,8 @@ public class FundController {
     }
 
     @GetMapping("/search")
-    public List<FundDTO> search(String fundName) {
-        return fundAo.search(fundName);
+    public List<FundDTO> search(FundQueryDTO fundQueryDto) {
+        return fundAo.search(fundQueryDto);
     }
 
 }

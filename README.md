@@ -1,20 +1,27 @@
 # Fund
 
 <p align="center">
+<a href="https://github.com/futaosmile"><img src="https://img.shields.io/badge/Author-futao-orange.svg"></a>
+<a href="https://gitee.com/futaosmile/fund"><img src="https://gitee.com/futaosmile/fund/badge/star.svg"></a>
+<a href="https://gitee.com/futaosmile/fund"><img src="https://gitee.com/futaosmile/fund/badge/fork.svg"></a>
 <img src="https://img.shields.io/github/followers/futaosmile?style=social">
 <img src="https://img.shields.io/github/commit-activity/w/futaosmile/fund">
 <img src="https://img.shields.io/github/languages/top/futaosmile/fund">
 </p>
 
-- 项目介绍
-  1. 爬取基金数据
-  2. 写入ES
-  3. 通过VUE前端页面展示
+-
+
+## 项目介绍
+
+1. 爬取基金数据
+2. 写入ES
+3. 通过VUE前端页面展示
 
 - 目的
   - 对相关技术做个实践
 
 ## 项目构成：
+
 - [fund-core](./fund-core)
   - 框架相关的
 - [fund-api](./fund-api)

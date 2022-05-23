@@ -17,6 +17,9 @@ import org.springframework.data.elasticsearch.annotations.*;
 @Document(indexName = "fund", createIndex = true, dynamic = Dynamic.TRUE)
 public class FundESO {
     @Id
+    private String id;
+
+    @Field(type = FieldType.Keyword)
     private String fundCode;
 
     @MultiField(
