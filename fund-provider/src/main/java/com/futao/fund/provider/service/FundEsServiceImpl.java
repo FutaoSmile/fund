@@ -1,5 +1,6 @@
 package com.futao.fund.provider.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.futao.fund.api.FundEsService;
 import com.futao.fund.api.FundSpiderService;
 import com.futao.fund.api.dto.FundDTO;
@@ -15,17 +16,18 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.IndexQuery;
-import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.operations
+ *
  * @author futao
  * @date 2022/5/19
  */
@@ -46,12 +48,19 @@ public class FundEsServiceImpl implements FundEsService {
             List<IndexQuery> indexQueryList = fetchResult.stream()
                     .map(x -> new IndexQueryBuilder()
                             .withObject(x)
-                            .build()).collect(Collectors.toList());
+                            .build())
+                    .collect(Collectors.toList());
             elasticsearchOperations.bulkIndex(indexQueryList, FundESO.class);
         }
         return Boolean.TRUE;
     }
 
+    /**
+     * https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.operations.nativesearchquery
+     *
+     * @param fundQueryDto
+     * @return
+     */
     @Override
     public List<FundDTO> search(FundQueryDTO fundQueryDto) {
         NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
@@ -79,6 +88,57 @@ public class FundEsServiceImpl implements FundEsService {
             log.info("ES查询：{}", query);
         }
         SearchHits<FundESO> search = elasticsearchOperations.search(nativeSearchQuery, FundESO.class);
+        return search.getSearchHits()
+                .stream()
+                .map(x -> {
+                    FundESO content = x.getContent();
+                    FundDTO fundDto = new FundDTO();
+                    BeanUtils.copyProperties(content, fundDto);
+                    return fundDto;
+                }).collect(Collectors.toList());
+    }
+
+    /**
+     * https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.operations.criteriaquery
+     *
+     * @return
+     */
+    @Override
+    public List<FundDTO> searchByCriteria() {
+        // Criteria criteria = new Criteria(FundESO.DAILY_GROWTH_RATE).greaterThanEqual(3).lessThan(5);
+        Criteria criteria = new Criteria(FundESO.FUND_NAME).is("前海")
+                .and(FundESO.DAILY_GROWTH_RATE).greaterThanEqual(1);
+
+        log.info("criteria query: {}", criteria);
+        Query query = new CriteriaQuery(criteria);
+        SearchHits<FundESO> search = elasticsearchOperations.search(query, FundESO.class);
+        return search.getSearchHits()
+                .stream()
+                .map(x -> {
+                    FundESO content = x.getContent();
+                    FundDTO fundDto = new FundDTO();
+                    BeanUtils.copyProperties(content, fundDto);
+                    return fundDto;
+                }).collect(Collectors.toList());
+    }
+
+    /**
+     * https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.operations.stringquery
+     *
+     * @return
+     */
+    @Override
+    public List<FundDTO> searchByDsl() {
+        JSONObject dslQuery = new JSONObject();
+        dslQuery.fluentPut("query", new JSONObject().fluentPut("match", new JSONObject().fluentPut(FundESO.FUND_NAME, "前海")));
+        // sort 和 page 需要单独传
+        // .fluentPut("sort", new JSONArray().fluentAdd(new JSONObject().fluentPut(FundESO.DAILY_GROWTH_RATE, new JSONObject().fluentPut("order", "desc"))))
+        // .fluentPut("from", 1)
+        // .fluentPut("size", 20);
+        String source = dslQuery.toJSONString();
+        log.info("search dsl: {}", source);
+        Query query = new StringQuery(source, PageRequest.of(0, 20), Sort.by(Sort.Order.desc(FundESO.DAILY_GROWTH_RATE)));
+        SearchHits<FundESO> search = elasticsearchOperations.search(query, FundESO.class);
         return search.getSearchHits()
                 .stream()
                 .map(x -> {

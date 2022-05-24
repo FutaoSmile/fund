@@ -3,4 +3,10 @@ POST http://localhost:8080/fund/spider-fetch
 ###
 GET http://localhost:8080/fund/search?sortFields=dailyGrowthRate:desc,nearlyMonth:asc&pageNo=1&pageSize=100
 
+###
+GET http://localhost:8080/fund/search-by-criteria
+
+###
+GET http://localhost:8080/fund/search-by-dsl
+
 

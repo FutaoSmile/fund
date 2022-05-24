@@ -13,4 +13,8 @@ public interface FundEsService {
     Boolean spiderFetch();
 
     List<FundDTO> search(FundQueryDTO fundName);
+
+    List<FundDTO> searchByCriteria();
+
+    List<FundDTO> searchByDsl();
 }

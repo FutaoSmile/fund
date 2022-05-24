@@ -25,4 +25,12 @@ public class FundAo {
     public List<FundDTO> search(FundQueryDTO fundName) {
         return fundEsService.search(fundName);
     }
+
+    public List<FundDTO> searchByCriteria() {
+        return fundEsService.searchByCriteria();
+    }
+
+    public List<FundDTO> searchByDsl() {
+        return fundEsService.searchByDsl();
+    }
 }

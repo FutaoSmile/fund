@@ -32,4 +32,14 @@ public class FundController {
         return fundAo.search(fundQueryDto);
     }
 
+    @GetMapping("/search-by-criteria")
+    public List<FundDTO> searchByCriteria() {
+        return fundAo.searchByCriteria();
+    }
+
+    @GetMapping("/search-by-dsl")
+    public List<FundDTO> searchByDsl() {
+        return fundAo.searchByDsl();
+    }
+
 }
