@@ -17,4 +17,6 @@ public interface FundEsService {
     List<FundDTO> searchByCriteria();
 
     List<FundDTO> searchByDsl();
+
+    FundDTO repositorySearch(String fundCode);
 }

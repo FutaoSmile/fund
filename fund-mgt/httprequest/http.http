@@ -9,4 +9,7 @@ GET http://localhost:8080/fund/search-by-criteria
 ###
 GET http://localhost:8080/fund/search-by-dsl
 
+###
+GET http://localhost:8080/fund/repository-search?fundCode=004098
+
 

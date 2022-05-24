@@ -12,6 +12,9 @@ public class BeanUtils {
     }
 
     public static <T> T copyProperties(Object source, Class<T> targetType, String... ignoreProperties) {
+        if (source == null) {
+            return null;
+        }
         try {
             T target = targetType.newInstance();
             org.springframework.beans.BeanUtils.copyProperties(source, target, ignoreProperties);

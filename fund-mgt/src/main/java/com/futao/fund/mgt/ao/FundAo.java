@@ -33,4 +33,8 @@ public class FundAo {
     public List<FundDTO> searchByDsl() {
         return fundEsService.searchByDsl();
     }
+
+    public FundDTO repositorySearch(String fundCode) {
+        return fundEsService.repositorySearch(fundCode);
+    }
 }

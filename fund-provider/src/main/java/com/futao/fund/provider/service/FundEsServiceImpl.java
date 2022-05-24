@@ -5,6 +5,7 @@ import com.futao.fund.api.FundEsService;
 import com.futao.fund.api.FundSpiderService;
 import com.futao.fund.api.dto.FundDTO;
 import com.futao.fund.api.dto.query.FundQueryDTO;
+import com.futao.fund.provider.dao.FundRepository;
 import com.futao.fund.provider.eso.FundESO;
 import com.futao.fund.provider.utils.QueryDtoUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,9 @@ public class FundEsServiceImpl implements FundEsService {
 
     @Autowired
     private ElasticsearchOperations elasticsearchOperations;
+
+    @Autowired
+    private FundRepository fundRepository;
 
     @DubboReference(version = "1.0.0", retries = 0, check = false)
     private FundSpiderService fundSpiderService;
@@ -130,7 +134,8 @@ public class FundEsServiceImpl implements FundEsService {
     @Override
     public List<FundDTO> searchByDsl() {
         JSONObject dslQuery = new JSONObject();
-        dslQuery.fluentPut("query", new JSONObject().fluentPut("match", new JSONObject().fluentPut(FundESO.FUND_NAME, "前海")));
+        // 不需要最外层的query
+        dslQuery.fluentPut("match", new JSONObject().fluentPut(FundESO.FUND_NAME, "前海"));
         // sort 和 page 需要单独传
         // .fluentPut("sort", new JSONArray().fluentAdd(new JSONObject().fluentPut(FundESO.DAILY_GROWTH_RATE, new JSONObject().fluentPut("order", "desc"))))
         // .fluentPut("from", 1)
@@ -147,5 +152,12 @@ public class FundEsServiceImpl implements FundEsService {
                     BeanUtils.copyProperties(content, fundDto);
                     return fundDto;
                 }).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public FundDTO repositorySearch(String fundCode) {
+        FundESO fundESO = fundRepository.byFundCode(fundCode);
+        return com.futao.fund.core.util.BeanUtils.copyProperties(fundESO, FundDTO.class);
     }
 }

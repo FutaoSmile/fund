@@ -25,3 +25,7 @@ dubbo:
 app:
   dubbo:
     service-version: 1.0.0
+
+logging:
+  level:
+    com.futao.fund.core.usercontext: debug

@@ -4,10 +4,7 @@ import com.futao.fund.api.dto.FundDTO;
 import com.futao.fund.api.dto.query.FundQueryDTO;
 import com.futao.fund.mgt.ao.FundAo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +37,11 @@ public class FundController {
     @GetMapping("/search-by-dsl")
     public List<FundDTO> searchByDsl() {
         return fundAo.searchByDsl();
+    }
+
+    @GetMapping("/repository-search")
+    public FundDTO repositorySearch(@RequestParam("fundCode") String fundCode) {
+        return fundAo.repositorySearch(fundCode);
     }
 
 }

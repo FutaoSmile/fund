@@ -40,5 +40,9 @@
             <artifactId>logback-classic</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
     </dependencies>
 </project>
