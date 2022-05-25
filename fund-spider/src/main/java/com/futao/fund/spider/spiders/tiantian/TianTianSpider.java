@@ -4,10 +4,10 @@ import com.futao.fund.spider.pageobject.FundPage;
 import com.futao.fund.spider.parsers.TableParser;
 import com.futao.fund.spider.utils.WebClientUtil;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import com.gargoylesoftware.htmlunit.html.*;
+import com.google.common.base.Splitter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.util.Asserts;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +52,68 @@ public class TianTianSpider {
             List<FundPage> curFundList = TableParser.parse(tableElement2, FundPage.class);
             fundList.addAll(curFundList);
             pageable(nextPage, tableId, fundList);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("----------" + fundDetail("000536"));
+    }
+
+    public static FundPage fundDetail(String fundCode) {
+        Asserts.notEmpty(fundCode, "基金代码");
+        try (WebClient webClient = WebClientUtil.getWebClient()) {
+            HtmlPage page = webClient.getPage("http://fund.eastmoney.com/" + fundCode + ".html");
+            // 定位到fundinfo这个div
+            List<HtmlTableDataCell> tds = page.getByXPath("//div[@class='infoOfFund']//td");
+            FundPage.FundPageBuilder fundPageBuilder = FundPage.builder().fundCode(fundCode);
+            for (HtmlTableDataCell td : tds) {
+                String contentStr = td.asNormalizedText();
+                log.info("contentStr:{}", contentStr);
+                String[] contentSplit = contentStr.split("：");
+                String data = null;
+                if (contentSplit.length >= 2) {
+                    data = contentSplit[1];
+                }
+                if (contentStr.contains("基金类型")) {
+                    List<String> dataList = Splitter.on("|")
+                            .trimResults()
+                            .splitToList(data);
+                    fundPageBuilder.fundType(dataList.get(0));
+                    fundPageBuilder.riskLevel(dataList.get(1));
+                    continue;
+                }
+                if (contentStr.contains("基金规模")) {
+                    String[] split = data.split("（");
+                    fundPageBuilder.totalValue(split[0]);
+                    fundPageBuilder.totalValueDate(split[1].replace("）", ""));
+                    continue;
+                }
+                if (contentStr.contains("基金经理")) {
+                    fundPageBuilder.manager(data);
+                    continue;
+                }
+                if (contentStr.contains("成 立 日")) {
+                    fundPageBuilder.establishmentDate(data);
+                    continue;
+                }
+                if (contentStr.contains("管 理 人")) {
+                    fundPageBuilder.fundManagerCompany(data);
+                    continue;
+                }
+
+                if (contentStr.contains("基金评级")) {
+                    // 获取不到，奇怪
+                    // HtmlDivision starDiv = (HtmlDivision) td.getFirstByXPath("/div");
+                    // String starClass = starDiv.getAttribute("class");
+                    String starClass = ((HtmlDivision) td.getLastChild()).getAttribute("class");
+                    char starString = starClass.charAt(starClass.length() - 1);
+                    fundPageBuilder.star(Integer.parseInt(String.valueOf(starString)));
+                    continue;
+                }
+            }
+            return fundPageBuilder.build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

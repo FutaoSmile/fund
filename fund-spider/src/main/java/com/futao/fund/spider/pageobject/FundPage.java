@@ -1,8 +1,7 @@
 package com.futao.fund.spider.pageobject;
 
 import com.futao.fund.spider.annotations.ColumnName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -12,6 +11,8 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@ToString
+@Builder
 public class FundPage implements PageObject, Serializable {
     @ColumnName("基金代码")
     private String fundCode;
@@ -43,4 +44,36 @@ public class FundPage implements PageObject, Serializable {
     private String sinceFounded;
     @ColumnName("手续费")
     private String handlingFee;
+    /**
+     * 基金类型
+     */
+    private String fundType;
+    /**
+     * 风险等级
+     */
+    private String riskLevel;
+    /**
+     * 基金规模
+     */
+    private String totalValue;
+    /**
+     * 基金规模统计日期
+     */
+    private String totalValueDate;
+    /**
+     * 基金经理
+     */
+    private String manager;
+    /**
+     * 成立日期
+     */
+    private String establishmentDate;
+    /**
+     * 管理人，基金公司
+     */
+    private String fundManagerCompany;
+    /**
+     * 星级
+     */
+    private Integer star;
 }
