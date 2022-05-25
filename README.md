@@ -9,7 +9,9 @@
 <img src="https://img.shields.io/github/languages/top/futaosmile/fund">
 </p>
 
--
+- 项目仓库:
+  - github: https://github.com/FutaoSmile/fund
+  - gitee: https://gitee.com/FutaoSmile/fund
 
 ## 项目介绍
 
