@@ -37,6 +37,7 @@
         <dubbo-starter.version>2.7.10</dubbo-starter.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <javaee-api.version>8.0.1</javaee-api.version>
+        <spring-state-matchine.version>3.2.0</spring-state-matchine.version>
     </properties>
 
     <dependencies>
@@ -67,6 +68,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--https://spring.io/projects/spring-statemachine-->
+            <dependency>
+                <groupId>org.springframework.statemachine</groupId>
+                <artifactId>spring-statemachine-core</artifactId>
+                <version>${spring-state-matchine.version}</version>
+            </dependency>
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
