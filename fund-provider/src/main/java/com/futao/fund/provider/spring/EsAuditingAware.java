@@ -1,6 +1,8 @@
 package com.futao.fund.provider.spring;
 
+import com.futao.fund.core.usercontext.CurrentUser;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -11,9 +13,10 @@ import java.util.Optional;
  * @author futaosmile@gmail.com
  * @date 2022/5/24
  */
-public class AuditingAware implements AuditorAware<String> {
+@Component
+public class EsAuditingAware implements AuditorAware<String> {
     @Override
     public Optional<String> getCurrentAuditor() {
-        return Optional.empty();
+        return Optional.of(CurrentUser.s());
     }
 }

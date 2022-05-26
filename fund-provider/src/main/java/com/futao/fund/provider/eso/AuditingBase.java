@@ -14,7 +14,8 @@ import org.springframework.data.domain.Persistable;
  */
 @Getter
 @Setter
-public abstract class Base implements Persistable<String> {
+public abstract class AuditingBase implements Persistable<String> {
+
     @CreatedBy
     private String createBy;
 

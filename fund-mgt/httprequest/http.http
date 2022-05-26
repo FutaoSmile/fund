@@ -1,15 +1,15 @@
-POST http://localhost:8080/fund/spider-fetch
+POST {{domain}}/fund/spider-fetch
 
 ###
-GET http://localhost:8080/fund/search?sortFields=dailyGrowthRate:desc,nearlyMonth:asc&pageNo=1&pageSize=100
+GET {{domain}}/fund/search?sortFields=dailyGrowthRate:desc,nearlyMonth:asc&pageNo=1&pageSize=100
 
 ###
-GET http://localhost:8080/fund/search-by-criteria
+GET {{domain}}/fund/search-by-criteria
 
 ###
-GET http://localhost:8080/fund/search-by-dsl
+GET {{domain}}/fund/search-by-dsl
 
 ###
-GET http://localhost:8080/fund/repository-search?fundCode=004098
+GET {{domain}}/fund/repository-search?fundCode=004098
 
 

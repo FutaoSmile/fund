@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FundPage implements PageObject, Serializable {
     @ColumnName("基金代码")
     private String fundCode;

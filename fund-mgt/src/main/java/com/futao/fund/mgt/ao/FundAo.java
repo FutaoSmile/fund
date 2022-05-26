@@ -19,7 +19,7 @@ public class FundAo {
     private FundEsService fundEsService;
 
     public Boolean spiderFetch() {
-        return fundEsService.spiderFetch();
+        return fundEsService.spiderFetch2();
     }
 
     public List<FundDTO> search(FundQueryDTO fundName) {

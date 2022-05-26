@@ -58,3 +58,14 @@
 
 - how to use ES in
   springboot: [https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#reference](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#reference)
+
+## 已实现案例：
+
+### ES:
+
+- 审计
+  - 自动设置createBy、createDateTime、UpdateBy、UpdateDateTime
+- 批量插入
+  - Repository
+  - Bulk API
+- 搜索

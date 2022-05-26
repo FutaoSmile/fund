@@ -10,6 +10,8 @@ import java.util.List;
  * @date 2022/5/19
  */
 public interface FundEsService {
+    Boolean spiderFetch2();
+
     Boolean spiderFetch();
 
     List<FundDTO> search(FundQueryDTO fundName);

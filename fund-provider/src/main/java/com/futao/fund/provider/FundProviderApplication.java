@@ -10,7 +10,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  * @date 2022/5/19
  */
 @EnableElasticsearchRepositories(basePackages = {"com.futao.fund.provider.dao"})
-// 审计
+// ES审计
 @EnableElasticsearchAuditing
 @SpringBootApplication
 public class FundProviderApplication {

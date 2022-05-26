@@ -3,7 +3,6 @@ package com.futao.fund.provider.eso;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.elasticsearch.annotations.*;
 
 /**
@@ -12,10 +11,10 @@ import org.springframework.data.elasticsearch.annotations.*;
  */
 @Getter
 @Setter
-@TypeAlias("fund2") // 无效
+// @TypeAlias("fund2") // 不会成为alias，而是将每个文档的 "_class" : "fund2"
 @Setting(shards = 1, replicas = 1)
 @Document(indexName = "fund", createIndex = true, dynamic = Dynamic.TRUE)
-public class FundESO {
+public class FundESO extends AuditingBase {
     @Id
     private String id;
 
@@ -88,4 +87,14 @@ public class FundESO {
     private Long createDateTime;
     public static final String CREATE_DATE_TIME = "createDateTime";
 
+    /**
+     * 用于ES审计功能
+     * 如果修改时间为空则标记为新增数据，否则为修改数据
+     *
+     * @return 是否是新增数据
+     */
+    @Override
+    public boolean isNew() {
+        return this.getId() == null;
+    }
 }

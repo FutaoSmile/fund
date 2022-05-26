@@ -22,7 +22,7 @@ public class FundSpiderServiceImpl implements FundSpiderService {
 
     @Override
     public List<FundDTO> fetch() {
-        List<FundPage> fundPageList = TianTianSpider.fetchTableValueByPage("http://fund.eastmoney.com/trade/gp.html", "tblite_gp", true);
+        List<FundPage> fundPageList = TianTianSpider.fetchTableValueByPage("http://fund.eastmoney.com/trade/gp.html", "tblite_gp", false);
         if (CollectionUtils.isNotEmpty(fundPageList)) {
             return fundPageList.stream()
                     .map(x -> new FundDTO(

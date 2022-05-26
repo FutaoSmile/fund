@@ -1,5 +1,6 @@
 package com.futao.fund.provider.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.futao.fund.api.FundEsService;
 import com.futao.fund.api.FundSpiderService;
@@ -23,6 +24,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.*;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +46,23 @@ public class FundEsServiceImpl implements FundEsService {
 
     @DubboReference(version = "1.0.0", retries = 0, check = false)
     private FundSpiderService fundSpiderService;
+
+
+    @Override
+    public Boolean spiderFetch2() {
+        List<FundDTO> fetchResult = fundSpiderService.fetch();
+        if (CollectionUtils.isNotEmpty(fetchResult)) {
+            List<FundESO> esos = fetchResult.stream()
+                    .map(x -> com.futao.fund.core.util.BeanUtils.copyProperties(x, FundESO.class))
+                    .collect(Collectors.toList());
+            Iterable<FundESO> fundESOS = fundRepository.saveAll(esos);
+            Iterator<FundESO> iterator = fundESOS.iterator();
+            while (iterator.hasNext()) {
+                System.out.println(JSON.toJSONString(iterator.next(), true));
+            }
+        }
+        return true;
+    }
 
     @Override
     public Boolean spiderFetch() {
