@@ -11,17 +11,17 @@ import org.springframework.util.Assert;
  * @date 2022/5/22
  */
 @Component
-public class ApplicationContextHolder implements ApplicationContextAware {
+public class SpringContextHolder implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
 
     public static ApplicationContext getApplicationContext() {
         Assert.notNull(applicationContext, "spring容器还未初始化完成");
-        return ApplicationContextHolder.applicationContext;
+        return SpringContextHolder.applicationContext;
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationContextHolder.applicationContext = applicationContext;
+        SpringContextHolder.applicationContext = applicationContext;
     }
 
     public static Object getBean(String name) throws BeansException {

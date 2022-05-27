@@ -1,4 +1,4 @@
-package com.futao.fund.provider.utils;
+package com.futao.fund.provider.util;
 
 import com.futao.fund.api.dto.query.base.Pageable;
 import com.futao.fund.api.dto.query.base.Sortable;
@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
  * @author futaosmile@gmail.com
  * @date 2022/5/23
  */
-public class QueryDtoUtil {
+public abstract class QueryDtoUtils {
     public static void pageable(NativeSearchQueryBuilder nativeSearchQueryBuilder, Pageable pageable) {
         Integer pageNum = 0;
         Integer pageSize = 10;

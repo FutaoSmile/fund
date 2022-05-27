@@ -7,6 +7,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 import com.google.common.base.Splitter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.util.Asserts;
 
 import java.io.IOException;
@@ -61,8 +62,10 @@ public class TianTianSpider {
 
     public static FundPage fundDetail(String fundCode) {
         Asserts.notEmpty(fundCode, "基金代码");
+        String url = "http://fund.eastmoney.com/" + fundCode + ".html";
+        log.info("爬取地址:{}", url);
         try (WebClient webClient = WebClientUtil.getWebClient()) {
-            HtmlPage page = webClient.getPage("http://fund.eastmoney.com/" + fundCode + ".html");
+            HtmlPage page = webClient.getPage(url);
             // 定位到fundinfo这个div
             List<HtmlTableDataCell> tds = page.getByXPath("//div[@class='infoOfFund']//td");
             FundPage.FundPageBuilder fundPageBuilder = FundPage.builder().fundCode(fundCode);
@@ -105,7 +108,12 @@ public class TianTianSpider {
                     // 获取不到，奇怪
                     // HtmlDivision starDiv = (HtmlDivision) td.getFirstByXPath("/div");
                     // String starClass = starDiv.getAttribute("class");
+                    if (StringUtils.isNotEmpty(((HtmlDivision) td.getLastChild()).asNormalizedText())) {
+                        fundPageBuilder.star(0);
+                        continue;
+                    }
                     String starClass = ((HtmlDivision) td.getLastChild()).getAttribute("class");
+                    System.out.println(starClass);
                     char starString = starClass.charAt(starClass.length() - 1);
                     fundPageBuilder.star(Integer.parseInt(String.valueOf(starString)));
                     continue;

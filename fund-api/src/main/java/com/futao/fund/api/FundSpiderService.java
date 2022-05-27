@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface FundSpiderService {
     List<FundDTO> fetch();
+
+    FundDTO detail(String funcCode);
 }

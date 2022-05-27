@@ -8,7 +8,7 @@ import com.futao.fund.api.dto.FundDTO;
 import com.futao.fund.api.dto.query.FundQueryDTO;
 import com.futao.fund.provider.dao.FundRepository;
 import com.futao.fund.provider.eso.FundESO;
-import com.futao.fund.provider.utils.QueryDtoUtil;
+import com.futao.fund.provider.util.QueryDtoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -101,8 +101,8 @@ public class FundEsServiceImpl implements FundEsService {
             if (date != null) {
                 nativeSearchQueryBuilder.withQuery(QueryBuilders.termQuery("date", date));
             }
-            QueryDtoUtil.pageable(nativeSearchQueryBuilder, fundQueryDto);
-            QueryDtoUtil.sortable(nativeSearchQueryBuilder, fundQueryDto);
+            QueryDtoUtils.pageable(nativeSearchQueryBuilder, fundQueryDto);
+            QueryDtoUtils.sortable(nativeSearchQueryBuilder, fundQueryDto);
         }
 
         NativeSearchQuery nativeSearchQuery = nativeSearchQueryBuilder.build();

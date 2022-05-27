@@ -2,6 +2,7 @@ package com.futao.fund.spider.service;
 
 import com.futao.fund.api.FundSpiderService;
 import com.futao.fund.api.dto.FundDTO;
+import com.futao.fund.core.util.BeanUtils;
 import com.futao.fund.spider.pageobject.FundPage;
 import com.futao.fund.spider.spiders.tiantian.TianTianSpider;
 import com.futao.fund.spider.utils.NumberUtil;
@@ -25,25 +26,31 @@ public class FundSpiderServiceImpl implements FundSpiderService {
         List<FundPage> fundPageList = TianTianSpider.fetchTableValueByPage("http://fund.eastmoney.com/trade/gp.html", "tblite_gp", false);
         if (CollectionUtils.isNotEmpty(fundPageList)) {
             return fundPageList.stream()
-                    .map(x -> new FundDTO(
-                            x.getFundCode(),
-                            x.getFundName(),
-                            NumberUtil.parseString2Double(x.getUnitNetWorth()),
-                            TimeUtil.toTimestamp(TimeUtil.currentDate()),
-                            NumberUtil.parseString2Double(x.getDailyGrowthRate()),
-                            NumberUtil.parseString2Double(x.getNearlyWeek()),
-                            NumberUtil.parseString2Double(x.getNearlyMonth()),
-                            NumberUtil.parseString2Double(x.getNearly3Month()),
-                            NumberUtil.parseString2Double(x.getNearly6Month()),
-                            NumberUtil.parseString2Double(x.getNearlyYear()),
-                            NumberUtil.parseString2Double(x.getNearly2Year()),
-                            NumberUtil.parseString2Double(x.getNearly3Year()),
-                            NumberUtil.parseString2Double(x.getThisYear()),
-                            NumberUtil.parseString2Double(x.getSinceFounded()),
-                            NumberUtil.parseString2Double(x.getHandlingFee()),
-                            TimeUtil.toTimestamp(TimeUtil.currentDateTime())
-                    )).collect(Collectors.toList());
+                    .map(x -> FundDTO.builder()
+                            .fundCode(x.getFundCode())
+                            .fundName(x.getFundName())
+                            .unitNetWorth(NumberUtil.parseString2Double(x.getUnitNetWorth()))
+                            .date(TimeUtil.toTimestamp(TimeUtil.currentDate()))
+                            .dailyGrowthRate(NumberUtil.parseString2Double(x.getDailyGrowthRate()))
+                            .nearlyWeek(NumberUtil.parseString2Double(x.getNearlyWeek()))
+                            .nearlyMonth(NumberUtil.parseString2Double(x.getNearlyMonth()))
+                            .nearly3Month(NumberUtil.parseString2Double(x.getNearly3Month()))
+                            .nearly6Month(NumberUtil.parseString2Double(x.getNearly6Month()))
+                            .nearlyYear(NumberUtil.parseString2Double(x.getNearlyYear()))
+                            .nearly2Year(NumberUtil.parseString2Double(x.getNearly2Year()))
+                            .nearly3Year(NumberUtil.parseString2Double(x.getNearly3Year()))
+                            .thisYear(NumberUtil.parseString2Double(x.getThisYear()))
+                            .sinceFounded(NumberUtil.parseString2Double(x.getSinceFounded()))
+                            .handlingFee(NumberUtil.parseString2Double(x.getHandlingFee()))
+                            .build()
+                    ).collect(Collectors.toList());
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public FundDTO detail(String funcCode) {
+        FundPage fundPage = TianTianSpider.fundDetail(funcCode);
+        return BeanUtils.copyProperties(fundPage, FundDTO.class);
     }
 }
