@@ -82,4 +82,55 @@ public class FundESO extends AuditingBase {
     private Double handlingFee;
     public static final String HANDLING_FEE = "handlingFee";
 
+    /**
+     * 基金类型
+     */
+    @Field(type = FieldType.Keyword)
+    private String fundType;
+    /**
+     * 风险等级
+     */
+    @Field(type = FieldType.Keyword)
+    private String riskLevel;
+    /**
+     * 基金规模
+     */
+    @Field(type = FieldType.Keyword)
+    private String totalValue;
+    /**
+     * 基金规模统计日期
+     */
+    @Field(type = FieldType.Keyword)
+    private String totalValueDate;
+    /**
+     * 基金经理
+     */
+    @MultiField(
+            mainField = @Field(type = FieldType.Text),
+            otherFields = {
+                    @InnerField(suffix = "keyword", type = FieldType.Keyword)
+            }
+    )
+    private String manager;
+    /**
+     * 成立日期
+     */
+    @Field(type = FieldType.Keyword)
+    private String establishmentDate;
+    /**
+     * 管理人，基金公司
+     */
+    @MultiField(
+            mainField = @Field(type = FieldType.Text),
+            otherFields = {
+                    @InnerField(suffix = "keyword", type = FieldType.Keyword)
+            }
+    )
+    private String fundManagerCompany;
+    /**
+     * 星级
+     */
+    @Field(type = FieldType.Short)
+    private Integer star;
+
 }

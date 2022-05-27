@@ -12,4 +12,5 @@ GET {{domain}}/fund/search-by-dsl
 ###
 GET {{domain}}/fund/repository-search?fundCode=004098
 
-
+###
+GET {{domain}}/dubbo-group

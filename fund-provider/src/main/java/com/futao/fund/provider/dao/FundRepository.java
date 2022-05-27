@@ -20,7 +20,6 @@ public interface FundRepository extends ElasticsearchRepository<FundESO, String>
      */
     List<FundESO> findByFundNameAndDailyGrowthRateGreaterThan(String fundName, Double dailyGrowthRate);
 
-
     /**
      * 注意：只需要包含query的value，不需要外层query，与stringQuery类似
      * https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#elasticsearch.query-methods.at-query

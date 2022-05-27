@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 /**
+ * searchAfter，遍历所有数据
+ *
  * @author futaosmile@gmail.com
  * @date 2022/5/27
  */
