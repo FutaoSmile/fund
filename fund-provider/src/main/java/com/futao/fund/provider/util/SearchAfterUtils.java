@@ -8,6 +8,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
@@ -33,7 +34,7 @@ public abstract class SearchAfterUtils {
         try {
             SearchRequest searchRequest = new SearchRequest(param.getIndexName());
             SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-            sourceBuilder.query(new MatchAllQueryBuilder())
+            sourceBuilder.query(param.getQueryBuilder())
                     .size(param.getBatchSize())
                     .sort(SortBuilders.fieldSort(AuditingBase.ID)
                             .order(SortOrder.DESC));
@@ -84,5 +85,9 @@ public abstract class SearchAfterUtils {
          * 对结果的处理
          */
         private Consumer<SearchResponse> consumer;
+        /**
+         * 查询条件
+         */
+        private QueryBuilder queryBuilder = new MatchAllQueryBuilder();
     }
 }
