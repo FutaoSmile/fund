@@ -37,6 +37,9 @@ public class RestResultWrapper implements ResponseBodyAdvice<Object> {
             }
             log.info("当前用户:{}，dep:{}，requestUri:{}", name, departmentName, HttpServletUtils.getRequest().getRequestURI());
         }
+        if (methodParameter.getMethod().getDeclaringClass().getName().startsWith("org.springframework")) {
+            return false;
+        }
         return true;
     }
 

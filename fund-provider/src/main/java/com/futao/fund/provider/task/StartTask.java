@@ -14,7 +14,6 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,7 +27,7 @@ public class StartTask {
 
     private final RestHighLevelClient restHighLevelClient;
 
-    @Bean
+    // @Bean
     public ApplicationRunner es() {
         return (args) -> {
             ClusterHealthResponse health = restHighLevelClient.cluster().health(new ClusterHealthRequest(), RequestOptions.DEFAULT);
@@ -38,7 +37,7 @@ public class StartTask {
         };
     }
 
-    @Bean
+    // @Bean
     public ApplicationRunner runner() {
         return args -> {
             ScrollUtils.Param<FundESO> fundESOParam = new ScrollUtils.Param<>();
@@ -52,7 +51,7 @@ public class StartTask {
     }
 
     @SneakyThrows
-    @Bean
+    // @Bean
     public ApplicationRunner runner2() {
         return args -> {
             SearchAfterUtils.search(SearchAfterUtils.Param.builder()

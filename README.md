@@ -58,7 +58,7 @@
 
 - how to use ES in
   springboot: [https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#reference](https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#reference)
-
+- spring boot admin: https://github.com/codecentric/spring-boot-admin
 ## 已实现案例：
 
 ### ES:

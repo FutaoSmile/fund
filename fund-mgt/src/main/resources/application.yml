@@ -8,6 +8,12 @@ spring:
     resources:
       static-locations:
         - classpath:/dist/
+  boot:
+    admin:
+      client:
+        enabled: true
+        url:
+          - http://localhost:8083
 server:
   port: 8080
 
@@ -31,3 +37,10 @@ app:
 logging:
   level:
     com.futao.fund.core.usercontext: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
