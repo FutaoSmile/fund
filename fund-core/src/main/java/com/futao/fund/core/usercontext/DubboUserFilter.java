@@ -16,8 +16,9 @@ import org.apache.dubbo.rpc.*;
 public class DubboUserFilter implements Filter {
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
+        RpcContext context = RpcContext.getContext();
+        log.info("remote application name:{}", context.getRemoteApplicationName());
         try {
-            RpcContext context = RpcContext.getContext();
             String attachmentRpcUserId = context.getAttachment(RpcCons.USER_ID);
             if (context.isProviderSide()) {
                 // 当前是生产者 - 将用户信息保存在threadlocal中

@@ -14,3 +14,6 @@ GET {{domain}}/fund/repository-search?fundCode=004098
 
 ###
 GET {{domain}}/dubbo-group
+
+###
+POST {{domain}}/change-log-level?level=error
